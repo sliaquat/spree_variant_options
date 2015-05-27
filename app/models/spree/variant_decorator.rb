@@ -9,7 +9,7 @@ Spree::Variant.class_eval do
     #actual_price += Calculator::Vat.calculate_tax_on(self) if Spree::Config[:show_price_inc_vat]
     {
       :id    => self.id,
-      :in_stock => self.in_stock?,
+      :in_stock => (self.in_stock? || self.is_backorderable? || !self.track_inventory?),
       :price => actual_price,
       :sale_price => sale_price
     }
